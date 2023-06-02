@@ -49,7 +49,17 @@ const FormularioLogin = ()=>{
                     break;
                 }
                 case 3:{
-                    console.log("Se ha logueado el personal de apoyo");
+                    setToken(response.data.token);
+                    localStorage.setItem("rol",response.data.rol);
+                    localStorage.setItem("rut",response.data.rut);
+                    Swal.fire(
+                        'Iniciando sesión',
+                        'Redireccionando .......',
+                        'success'
+                      )
+                    setTimeout(()=>{
+                        navigate("/dashboard")
+                    },3000)
                     break;
                 }
                 

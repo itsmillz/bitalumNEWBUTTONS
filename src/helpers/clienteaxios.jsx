@@ -1,9 +1,26 @@
 import axios from "axios";
 import Swal from "sweetalert2";
+import { deleteToken, getToken } from "./tokenUtilities";
 
 
 const clienteAxios = axios.create({
     baseURL:"http://localhost:3000/api"
+})
+
+
+clienteAxios.interceptors.request.use((config)=>{
+   const token = getToken();
+   const rol = localStorage.getItem("rol");
+    
+    if(token && rol){
+        config.headers["Authorization"] = `Bearer ${token}`;
+        config.headers["rol"] = rol;
+       
+    }
+    return config;
+
+},(error)=>{
+    return Promise.reject(error);  
 })
 
 
@@ -15,7 +32,7 @@ clienteAxios.interceptors.response.use(
         // Realiza las acciones necesarias, como redireccionar a la página de inicio de sesión
         Swal.fire(
             'Error',
-            'Credenciales inválidas',
+            'No tiene autorización',
             'error'
           )
         setTimeout(()=>{
@@ -24,5 +41,7 @@ clienteAxios.interceptors.response.use(
       return Promise.reject(error);
     }
   );
+
+
 
 export default clienteAxios;

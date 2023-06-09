@@ -10,8 +10,6 @@ import { useLocation, useNavigate } from "react-router-dom";
 import logoubb from "../../assets/logoubb.png"
 
 const HeaderProfesional = ()=>{
-    const location = useLocation().pathname;
-    console.log(location);
     const [open, setOpen] = useState(false);
     const navigate = useNavigate();
     const handleToggleMenu = () => {

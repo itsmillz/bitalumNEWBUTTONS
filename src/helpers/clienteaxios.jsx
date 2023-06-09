@@ -37,6 +37,7 @@ clienteAxios.interceptors.response.use(
           )
         setTimeout(()=>{
         },3000)
+        window.location.href = "/"
       }
       return Promise.reject(error);
     }

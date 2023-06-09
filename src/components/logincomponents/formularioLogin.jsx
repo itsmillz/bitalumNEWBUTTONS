@@ -1,13 +1,11 @@
 import { Input, Key, Lock, PermIdentity } from "@mui/icons-material";
-import { Alert, Box, Button, Card, CardContent, FormLabel, TextField, Typography } from "@mui/material";
-import React from "react";
+import { Alert, Box, Button, Card, CardContent, TextField, Typography } from "@mui/material";
+import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
-import { useQuery } from "react-query";
+
 import { useRut } from "react-rut-formatter";
-import {setToken} from "../../helpers/tokenUtilities";
-import clienteAxios from "../../helpers/clienteaxios" 
-import { useNavigate } from "react-router-dom";
-import Swal from "sweetalert2";
+
+import { AuthContext } from "../../context/AuthContext";
 
 const FormularioLogin = ()=>{
     const { rut, updateRut, isValid } = useRut();
@@ -16,56 +14,13 @@ const FormularioLogin = ()=>{
             contrasena:""
         }
     })
-    const navigate = useNavigate();
+    const {login} = useContext(AuthContext);
+    
 
     const onSubmit = async(data)=>{
 
-        const datos = {
-            rut:rut.formatted,
-            contrasena:data.contrasena
-        }
-        const response = await clienteAxios.post("/auth/login",datos);
-        console.log(response.data)
-        if(response.status==200){
-            switch(response.data.rol){
-                case 1:{
-                    setToken(response.data.token);
-                    localStorage.setItem("rol",response.data.rol);
-                    localStorage.setItem("rut",response.data.alumno.rut);
-                    Swal.fire(
-                        'Iniciando sesión',
-                        'Redireccionando .......',
-                        'success'
-                      )
-                    setTimeout(()=>{
-                        navigate("/dashboard")
-                    },3000)
-                   
-                    
-                    break;
-                }
-                case 2:{
-                    console.log("Se ha logueado el jefe de carrera");
-                    break;
-                }
-                case 3:{
-                    setToken(response.data.token);
-                    localStorage.setItem("rol",response.data.rol);
-                    localStorage.setItem("rut",response.data.rut);
-                    Swal.fire(
-                        'Iniciando sesión',
-                        'Redireccionando .......',
-                        'success'
-                      )
-                    setTimeout(()=>{
-                        navigate("/dashboard")
-                    },3000)
-                    break;
-                }
-                
-            }
-        }
-       
+        login(rut.formatted,data.contrasena);
+    
         reset()
     }
     return (

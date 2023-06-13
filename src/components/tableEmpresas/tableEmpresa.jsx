@@ -166,7 +166,7 @@ const TableEmpresa = ()=>{
                                     <TableCell>
                                     
                                     <Tooltip title="Modificar Empresa" >
-                                        <EditIcon style={{cursor:"pointer"}} className="iconn" onClick={()=> { navigate(`/modificar/${trabajador.id}`) }} />
+                                        <EditIcon style={{cursor:"pointer"}} className="iconn" onClick={()=> { navigate(`/modificarEmpresa/${empresa.id_empresa}`) }} />
                                     </Tooltip>
                                     <Tooltip title="Eliminar Empresa">
                                         <DeleteIcon style={{cursor:"pointer"}} className="iconn" onClick={()=> eliminarEmpresa(empresa.id_empresa) } />

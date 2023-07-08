@@ -6,3 +6,16 @@
 .sweetalert_container{
     z-index: 9999;
 }
+
+/* Estilo por defecto (modo claro) */
+body {
+    background-color: white;
+    color: black;
+  }
+  
+  /* Modo oscuro */
+  body.dark {
+    background-color: rgb(0, 0, 0);
+    color: white;
+  }
+  

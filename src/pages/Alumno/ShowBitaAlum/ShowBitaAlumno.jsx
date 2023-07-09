@@ -91,13 +91,14 @@ const BitacoraDelete = async (id) => {
   }
 
   return (
-    <Container maxWidth="lg" maxHeight="lg" sx={{
+    <Container maxWidth="lg" sx={{
+      maxHeight: '100vh',
       marginBottom: '15px',
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
       justifyContent: 'center', // Centrado vertical
-      height: '100vh', // Ocupar toda la altura de la pantalla
+      minHeight: '100vh', // Ocupar al menos toda la altura de la pantalla
       paddingBottom: '85px'
     }}>
       <Box

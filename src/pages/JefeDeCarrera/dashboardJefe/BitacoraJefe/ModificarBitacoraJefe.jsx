@@ -49,46 +49,6 @@ const ModificarBitacoraJefe = () => {
 
     const id_usuario = localStorage.getItem('id_usuario');
 
-    const onSubmit = async (e) => {
-
-        e.preventDefault();
-
-        const data = {
-
-            titulo,
-            descripcion,
-            fecha_creacion: fecha_creacion,
-            hora_inicio: hora_inicio,
-            hora_fin: hora_fin,
-            id_tipo_bitacora: TipoBitacora, // Reemplaza con el valor correcto
-            id_estado_bitacora: estado, // Reemplaza con el valor correcto
-            id_usuario: Number(id_usuario), // Reemplaza con el valor correcto
-
-        }
-        console.log(data)
-
-        const response = await clienteAxios.put(`/bitacorajefe/update/${id}`, data);
-
-        console.log(response.data)
-
-        if (response.status == 200) {
-
-            Swal.fire({
-
-                title: "Actualizado",
-                text: "La bitácora ha sido actualizada correctamente",
-                icon: "success",
-                confirmButtonText: "Aceptar",
-
-            })
-            setTimeout(() => {
-
-                navigate("/showbitacorajefe");
-                // window.location.reload();
-
-            }, 2000)
-        }
-    }
 
 
     const getBitacoraJefe = async () => {
@@ -108,12 +68,6 @@ const ModificarBitacoraJefe = () => {
             const horainicioupdate = horainicio.substring(0, 5)
             setHoraInicio(horainicioupdate)
             console.log(horainicioupdate)
-
-            // const horafin = response.data.bitacora.hora_fin.split(`T`)[1]
-            // console.log(horafin)
-            // const horafinupdate = hora_fin.substring(0,5)
-            // setHoraFin(horafinupdate)
-            // console.log(horafinupdate)
 
             const horafin = response.data.bitacora.hora_fin;
             const horafinupdate = horafin.includes('T') ? horafin.split('T')[1].substring(0, 5) : '';
@@ -162,7 +116,7 @@ const ModificarBitacoraJefe = () => {
     };
 
 
-    const handleSubmit = async (e) => {
+    const onSubmit = async (e) => {
         e.preventDefault();
         // console.log(titulo + descripcion + fecha_creacion + hora_inicio + hora_inicio)
         if (titulo == '' || descripcion == '' || fecha_creacion == '' || hora_inicio == '' || hora_fin == '') {
@@ -181,7 +135,7 @@ const ModificarBitacoraJefe = () => {
 
         try {
 
-            const response = await clienteAxios.post('/bitacorajefe/create', {
+            const response = await clienteAxios.put(`bitacorajefe/update/${id}`, {
                 titulo,
                 descripcion,
                 fecha_creacion: fecha_creacion,
@@ -196,7 +150,7 @@ const ModificarBitacoraJefe = () => {
             if (response.status === 200) {
                 Swal.fire({
                     title: "Registrada",
-                    text: "La bitácora ha sido registrada correctamente",
+                    text: "La bitácora ha sido actualizada correctamente",
                     icon: "success",
                     confirmButtonText: "Aceptar"
                 })
@@ -373,7 +327,7 @@ const ModificarBitacoraJefe = () => {
                         type="submit"
                         color="primary"
                         sx={{ marginBottom: '10px', maxWidth: '300px', width: '100%' }}
-                        onClick={handleSubmit}
+                        onClick={onSubmit}
                         disabled={remainingChars === -1 || remainingCharsTitle === -1} //desactiva el botón cuando no quedan caracteres disponibles
                     >
                         Modificar Bitácora

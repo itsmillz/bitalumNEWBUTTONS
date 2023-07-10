@@ -19,35 +19,7 @@ const ModificarBitaAlumno = () => {
     const { id } = useParams();
 
     const id_usuario = localStorage.getItem('id_usuario');
-    const onSubmit = async (e) => {
-        e.preventDefault();
-
-        const data = {
-            titulo,
-            descripcion,
-            fecha_creacion: fecha_creacion,
-            hora_inicio: hora_inicio,
-            hora_fin: hora_fin,
-            id_estado_bitacora: 2, // Reemplaza con el valor correcto
-            id_usuario: 1, // Reemplaza con el valor correcto
-            id_inscripcion_practica: 26, // Reemplaza con el valor correcto
-        }
-        console.log(data)
-        const response = await clienteAxios.put(`/bitacoralumno/update/${id}`, data);
-        console.log(response.data)
-        if (response.status == 200) {
-            Swal.fire({
-                title: "Actualizado",
-                text: "La bitácora ha sido actualizada correctamente",
-                icon: "success",
-                confirmButtonText: "Aceptar",
-            })
-            setTimeout(() => {
-                navigate("/showbitalumno");
-                // window.location.reload();
-            }, 2000)
-        }
-    }
+    
 
 
     const getBitacoraAlumno = async () => {
@@ -104,7 +76,7 @@ const ModificarBitaAlumno = () => {
     };
 
 
-    const handleSubmit = async (e) => {
+    const onSubmit = async (e) => {
         e.preventDefault();
         // console.log(titulo + descripcion + fecha_creacion + hora_inicio + hora_inicio)
         if (titulo == '' || descripcion == '' || fecha_creacion == '' || hora_inicio == '' || hora_fin == '') {
@@ -123,7 +95,7 @@ const ModificarBitaAlumno = () => {
 
         try {
 
-            const response = await clienteAxios.post('/bitacoralumno/create', {
+            const response = await clienteAxios.put(`bitacoralumno/update/${id}`, {
                 titulo,
                 descripcion,
                 fecha_creacion: fecha_creacion,
@@ -138,7 +110,7 @@ const ModificarBitaAlumno = () => {
             if (response.status === 200) {
                 Swal.fire({
                     title: "Registrada",
-                    text: "La bitácora ha sido registrada correctamente",
+                    text: "La bitácora ha sido actualizada correctamente",
                     icon: "success",
                     confirmButtonText: "Aceptar"
                 })
@@ -275,7 +247,7 @@ const ModificarBitaAlumno = () => {
                         type="submit"
                         color="primary"
                         sx={{ marginBottom: '10px', maxWidth: '300px', width: '100%' }}
-                        onClick={handleSubmit}
+                        onClick={onSubmit}
                         disabled={remainingChars === -1 || remainingCharsTitle === -1} // desactiva el botón cuando no quedan caracteres disponibles
                     >
                         Modificar Bitácora

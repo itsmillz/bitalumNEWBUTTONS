@@ -3,7 +3,7 @@ import { useQuery } from "react-query";
 import clienteAxios from "../../../helpers/clienteaxios";
 import { useNavigate, useParams } from "react-router-dom";
 import Swal from "sweetalert2";
-import { TextField, Button, Container, MenuItem, Select, FormControl, InputLabel, Card, Typography } from '@mui/material';
+import { TextField, Button, Container, MenuItem, Select, FormControl, InputLabel, Card, Typography, Box } from '@mui/material';
 import SpeakerNotesIcon from '@mui/icons-material/SpeakerNotes';
 
 const ModificarBitaAlumno = () => {
@@ -73,7 +73,7 @@ const ModificarBitaAlumno = () => {
 
         }
     }
-    
+
     useEffect(() => {
         getBitacoraAlumno()
     }, [])
@@ -157,7 +157,7 @@ const ModificarBitaAlumno = () => {
 
 
     return (
-        <Container maxWidth="sm" sx={{ marginTop: '60px', display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom:'50px' }}>
+        <Container maxWidth="sm" sx={{ marginTop: '60px', display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: '50px' }}>
             <Card sx={{ padding: '20px' }}>
                 <Typography
                     component="h2"
@@ -261,16 +261,36 @@ const ModificarBitaAlumno = () => {
 
 
 
-                <Button
-                    variant="contained"
-                    type="submit"
-                    color="primary"
-                    sx={{ margin: '20px auto', display: 'block', textAlign: 'center' }}
-                    onClick={onSubmit}
-                    disabled={remainingChars === -1 || remainingCharsTitle === -1} // desactiva el botón cuando no quedan caracteres disponibles
+                <Box
+                    display="flex"
+                    flexDirection="column"
+                    alignItems="center"
+                    p={1}
+                    m={1}
+                    bgcolor="background.paper"
+                    sx={{ margin: '20px auto' }}
                 >
-                    Crear Bitácora
-                </Button>
+                    <Button
+                        variant="contained"
+                        type="submit"
+                        color="primary"
+                        sx={{ marginBottom: '10px', maxWidth: '300px', width: '100%' }}
+                        onClick={handleSubmit}
+                        disabled={remainingChars === -1 || remainingCharsTitle === -1} // desactiva el botón cuando no quedan caracteres disponibles
+                    >
+                        Modificar Bitácora
+                    </Button>
+
+                    <Button
+                        variant="contained"
+                        sx={{ maxWidth: '300px', width: '100%', backgroundColor: '#9e9e9e', color: '#FFFFFF', '&:hover': { backgroundColor: '#757575' } }}
+                        onClick={() => navigate("/showbitalumno")}
+                    >
+                        Cancelar
+                    </Button>
+                </Box>
+
+
             </Card>
         </Container>
     );

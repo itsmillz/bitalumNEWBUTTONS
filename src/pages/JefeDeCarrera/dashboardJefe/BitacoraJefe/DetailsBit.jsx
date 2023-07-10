@@ -32,33 +32,33 @@ const DetailsBitaJefe = () => {
   if (status === "success") {
     // console.log(data)
     return (
-      <Container maxWidth="lg" sx={{ marginTop: '17px', display: 'flex', flexDirection: 'column', alignItems: 'center', padding:'20px' }}>
+      <Container maxWidth="lg" sx={{ marginTop: '17px', display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '20px' }}>
         <Box
           sx={{
             display: 'flex',
             alignItems: 'center',
             marginBottom: '50px',
             color: 'inherit',
-            marginBottom:'55px',
+            marginBottom: '55px',
             '&:hover': {
               color: 'orange',
               cursor: 'default',
             },
           }}
         >
-          <Typography variant="h3" style={{fontSize:35, marginTop:'45px'}}>
+          <Typography variant="h3" style={{ fontSize: 35, marginTop: '45px' }}>
             Detalles de la bitácora
           </Typography>
-          <ContentPasteSearchIcon style={{ fontSize: 35, marginTop:'45px' }} color="inherit" />
+          <ContentPasteSearchIcon style={{ fontSize: 35, marginTop: '45px' }} color="inherit" />
         </Box>
-        <TableContainer sx={{ 
-                marginBottom: '30px', 
-                // border: '1px solid black', // Agrega un borde
-                borderRadius: '5px', // Redondea los bordes
-                maxHeight: '500px', // Altura máxima
-                boxShadow: '0px 0px 10px 0px rgba(0,0,0,0.2)',
-                overflow: 'auto' // Muestra una barra de desplazamiento cuando el contenido sobrepasa la altura máxima
-            }}>
+        <TableContainer sx={{
+          marginBottom: '30px',
+          // border: '1px solid black', // Agrega un borde
+          borderRadius: '5px', // Redondea los bordes
+          maxHeight: '500px', // Altura máxima
+          boxShadow: '0px 0px 10px 0px rgba(0,0,0,0.2)',
+          overflow: 'auto' // Muestra una barra de desplazamiento cuando el contenido sobrepasa la altura máxima
+        }}>
           <Table>
             <TableBody>
               <TableRow>
@@ -67,7 +67,7 @@ const DetailsBitaJefe = () => {
               </TableRow>
               <TableRow>
                 <TableCell>Descripción</TableCell>
-                <TableCell>{data.descripcion}</TableCell>
+                <TableCell style={{ wordWrap: 'break-word', maxWidth: '300px' }}>{data?.descripcion}</TableCell>
               </TableRow>
               <TableRow>
                 <TableCell>Fecha</TableCell>

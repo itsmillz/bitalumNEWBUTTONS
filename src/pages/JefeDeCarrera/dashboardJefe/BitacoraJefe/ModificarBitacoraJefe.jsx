@@ -3,7 +3,7 @@ import { useQuery } from "react-query";
 import clienteAxios from "../../../../helpers/clienteaxios";
 import { useNavigate, useParams } from "react-router-dom";
 import Swal from "sweetalert2";
-import { TextField, Button, Container, MenuItem, Select, FormControl, InputLabel, Card, Typography } from '@mui/material';
+import { TextField, Button, Container, MenuItem, Select, FormControl, InputLabel, Card, Typography, Box } from '@mui/material';
 import SpeakerNotesIcon from '@mui/icons-material/SpeakerNotes';
 
 const ModificarBitacoraJefe = () => {
@@ -22,29 +22,39 @@ const ModificarBitacoraJefe = () => {
 
 
     const tiposbitacoras = useQuery("tipo bitacoras", async () => {
+
         const response = await clienteAxios.get('/bitacorajefe/tipobitacoras')
         if (response.status === 200) {
+
             console.log(response.data.tipo_bitacoras)
             return response.data.tipo_bitacoras
 
         }
+
     });
 
 
     const getEstados = useQuery("estadosbitacora", async () => {
+
         const response = await clienteAxios.get("/bitacorajefe/estados")
 
         console.log(response.data)
         if (response.status == 200) {
+
             return response.data.estados_bitacora;
+            
         }
+
     })
 
     const id_usuario = localStorage.getItem('id_usuario');
+
     const onSubmit = async (e) => {
+
         e.preventDefault();
 
         const data = {
+
             titulo,
             descripcion,
             fecha_creacion: fecha_creacion,
@@ -53,28 +63,40 @@ const ModificarBitacoraJefe = () => {
             id_tipo_bitacora: TipoBitacora, // Reemplaza con el valor correcto
             id_estado_bitacora: estado, // Reemplaza con el valor correcto
             id_usuario: Number(id_usuario), // Reemplaza con el valor correcto
+
         }
         console.log(data)
+
         const response = await clienteAxios.put(`/bitacorajefe/update/${id}`, data);
+
         console.log(response.data)
+
         if (response.status == 200) {
+
             Swal.fire({
+
                 title: "Actualizado",
                 text: "La bitácora ha sido actualizada correctamente",
                 icon: "success",
                 confirmButtonText: "Aceptar",
+
             })
             setTimeout(() => {
+
                 navigate("/showbitacorajefe");
                 // window.location.reload();
+
             }, 2000)
         }
     }
 
 
     const getBitacoraJefe = async () => {
+
         const response = await clienteAxios.get(`/bitacorajefe/show/${id}`)
+
         if (response.status == 200) {
+
             console.log(response.data)
             setLoading(false)
             setTitulo(response.data.bitacora.titulo)
@@ -100,12 +122,16 @@ const ModificarBitacoraJefe = () => {
             setTipoBitacora(response.data.bitacora.tipo_bitacora.id_tipo_bitacora)
 
             setEstado(response.data.bitacora.estado_bitacora.id_estado_bitacora)
+
         }
+
     }
 
 
     useEffect(() => {
+
         getBitacoraJefe()
+
     }, [])
 
 
@@ -333,17 +359,37 @@ const ModificarBitacoraJefe = () => {
                 </p>
 
 
-
-                <Button
-                    variant="contained"
-                    type="submit"
-                    color="primary"
-                    sx={{ margin: '20px auto', display: 'block', textAlign: 'center' }}
-                    onClick={onSubmit}
-                    disabled={remainingChars === -1 || remainingCharsTitle === -1} // desactiva el botón cuando no quedan caracteres disponibles
+                <Box
+                    display="flex"
+                    flexDirection="column"
+                    alignItems="center"
+                    p={1}
+                    m={1}
+                    bgcolor="background.paper"
+                    sx={{ margin: '20px auto' }}
                 >
-                    Crear Bitácora
-                </Button>
+                    <Button
+                        variant="contained"
+                        type="submit"
+                        color="primary"
+                        sx={{ marginBottom: '10px', maxWidth: '300px', width: '100%' }}
+                        onClick={handleSubmit}
+                        disabled={remainingChars === -1 || remainingCharsTitle === -1} //desactiva el botón cuando no quedan caracteres disponibles
+                    >
+                        Modificar Bitácora
+
+                    </Button>
+
+                    <Button
+                        variant="contained"
+                        sx={{ maxWidth: '300px', width: '100%', backgroundColor: '#9e9e9e', color: '#FFFFFF', '&:hover': { backgroundColor: '#757575' } }}
+                        onClick={() => navigate("/showbitacorajefe")}
+                    >
+                        Cancelar
+
+                    </Button>
+                </Box>
+
             </Card>
         </Container>
     );

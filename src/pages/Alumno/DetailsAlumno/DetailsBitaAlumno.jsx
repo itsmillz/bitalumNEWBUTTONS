@@ -66,7 +66,7 @@ const DetailsBitaAlumno = () => {
               </TableRow>
               <TableRow>
                 <TableCell>Descripción</TableCell>
-                <TableCell>{data.descripcion}</TableCell>
+                <TableCell style={{ wordWrap: 'break-word', maxWidth: '300px' }}>{data?.descripcion}</TableCell>
               </TableRow>
               <TableRow>
                 <TableCell>Fecha</TableCell>

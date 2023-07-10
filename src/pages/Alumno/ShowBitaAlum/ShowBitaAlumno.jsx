@@ -9,7 +9,14 @@ import { useNavigate, useParams } from 'react-router-dom';
 import ContentPasteGoIcon from '@mui/icons-material/ContentPasteGo';
 import Swal from 'sweetalert2';
 import ModeEditOutlineIcon from '@mui/icons-material/ModeEditOutline';
-
+import { useTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import CardActions from '@mui/material/CardActions';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemText from '@mui/material/ListItemText';
 const ShowBitaAlumno = () => {
     const {id} = useParams();
     const {data, status, refetch} = useQuery("bitacoralumno", async () => {
@@ -21,6 +28,8 @@ const ShowBitaAlumno = () => {
 
 
     const navigate = useNavigate();
+    const theme = useTheme();
+    const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
 
     const handleNavigate = (id) => {
